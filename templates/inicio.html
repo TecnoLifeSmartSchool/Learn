@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/inicio.css">
+    <link rel="stylesheet" href="../static/video_aula_usuario.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,644;1,644&display=swap" rel="stylesheet">
+ 
+      
+    <style>
+      #inicios{
+            display: none;
+        }
+    </style>
+
+
+  
+    </style>
+</head>
+<body>
+
+
+<!-- inicio da formatação da parte da configuração -->
+
+<div class="loader">
+    <div class="texto_loader">
+        <h1>Learn With Me</h1>
+
+    </div>
+    <div class="texto_loader_baixo">
+       <p id="menssagem_carregando">Preparando a Sala de aula para voce.  <h4>Aguarde...</h4></p>
+    </div>
+    <div class="spinner" id="loader">
+         
+    </div>
+</div>
+
+<section class="configuration">
+
+    <div class="caxa_configuration">
+
+        <div class="serch_caxa_configuration">
+                    <input type="text" placeholder="pesquisa" id="pesquisa_denuncia" onkeyup="pesquisa_denuncia()">
+                    <button onclick="cancelar()">Cancelar</button>
+        </div>
+
+        <div class="usuarios_denuncia">
+
+            {% for b in obterAmigos %}
+            {% if b[0] != None %}
+             <div class="amigos_denuncia nome_denuncias">
+                <li>
+                    <img src="http://127.0.0.1:5000/static/arquivo_usuario/{{b[1]}}" alt="">
+                </li>
+                <li class="nome_denuncia">{{b[0]}}_{{b[3]}}</li>
+                <li class="evento_denuncia" onclick="denunciar_sujeito(this)">Denunciar</li>
+             </div>
+             {% endif %}
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="denuncia_usuario_caxa">
+        <div class="menu_denuncia_usuario_caxa">
+            <h1>o que o (a) <b id="receber_nome_sujeito">texto</b> fez para voce?</h1>
+        </div>
+        <div class="caxa_denuncia_usuario_caxa">
+            <input type="text" placeholder="deigite sua denuncia..." id="denuncia_usuario">
+            <div class="btn_denuncia">
+
+            <button id="receber_recado" onclick="enviar_denuncia_usuario()">enviar denuncia</button>
+            <button onclick="cancelar_denuncia_usuario()">cancelar denuncia</button>
+
+            </div>
+        </div>
+        
+    </div>
+
+</section>
+
+<section class="melhor">
+    <div class="caxa_melhor">
+        <h1 id="txt_melhore"></h1>
+        
+        <input type="text" id="textos" placeholder="Digite sua opnião">
+        <button onclick="melhor()">Enviar</button>
+        <button onclick="voltar_melhor()">Voltar</button>
+    
+    </div>
+</section>
+
+<section class="admim">
+
+    <div class="caxa_admim">
+
+        <div class="menu_admim">
+            <li id="texto2" class="txt_admim"></li>
+            <nav>
+                <li>denuncia</li>
+                <li>Comentario</li>
+                <li onclick="voltar_admim()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
+                    <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z"/>
+                    </svg>
+                </li>
+            </nav>
+        </div>
+
+        <div class="centro_admim">
+            <div class="caxa_centro left">
+                <div class="menu_caxa_centro">
+                    Denuncia do Usuario
+                </div>
+                <div class="denuncia_usuario">
+
+                    {% for e in obter_denuncias %}
+
+                    <div class="users_denuncia">
+                        <li class="li remitente" onclick="usuario_denuncia(this)">{{e[1]}}</li>
+                        <li style="display: none;" class="oculto_nome" id="oculto_nome">{{e[0]}}</li>
+                        <li style="display: none;" class="oculto_comentario">{{e[2]}}</li>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="caxa_centro centro">
+                <div class="centro_caxa_resultado">
+
+                    <div style="display: flex;" class="fundo_caxa_centro">
+                        <img src="../static/arquivo_imagem/icone_site.png" alt="">
+                    </div>
+                    <div style="display: none;" class="cont_caxa_centro">
+
+                        <div class="cont_caxa">
+                            <button id="receber_dados" class="receber_dados"><b id="nome_remitente">texto</b> denunciou <b id="nome_destinatario">texto</b></button>
+                        </div>
+                        <div class="informa_denuncia" id="informa_denuncia">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eum a blanditiis? 
+                            Tenetur nemo laborum numquam repellat in consectetur beatae, 
+                            minus error earum quae, libero eveniet deleniti tempore provident reprehenderit!
+                        </div>
+                        <div class="fazer">
+                            <button class="bloquear">Bloquear</button>
+                            <button class="alertar">Alertar</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="caxa_centro right">
+                <div class="menu_caxa_centro">
+                    Comentario do usuario
+                </div>
+                <div class="comentario_usuario">
+
+                    <li class="li">texto</li>
+                    <li class="li">texto</li>
+                    <li class="li">texto</li>
+                    <li class="li">texto</li>
+                    <li class="li">texto</li>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+ <!-- fim da formtação da parte da configuração -->
+    
+
+    <!-- inicio da aplicação -->
+
+    <header class="header">
+        <li class="l1 elimina">
+            <em class="imgEm">
+                <img class="icone" src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="">
+            </em>
+        <div class="barra_de_pesquisa_de_cursos_disponiveis">
+            <input type="text" placeholder="pesquise seu curso..." onkeyup="cursoSearche()" id="result">
+            <button><img  src="../static/arquivo_imagem/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt=""></button>
+        </div>
+        </li>
+        <nav>
+            <li class="l elimina" onclick="home()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house casa" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                </svg>
+            </li>
+            <!-- responsivo -->
+            <li class="l ver" onclick="homes()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house casa" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                </svg>
+            </li>
+             <!-- fim responsivo -->
+            <li class="l ver notifica" onclick="nota()">
+                <sub class="sub" id="sub">{{novo}}</sub>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell sino" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                </svg>
+                  
+            </li>
+                
+            <li class="l elimina">
+                <sub class="subSMS" id="subSMS">
+         
+                {{z}}
+         
+                </sub>
+                <sub class="ponto ponto2"></sub>
+                <svg onclick="chat()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text mensage" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </li>
+                 <!-- responsivo -->
+                <li class="l ver">
+                <sub class="subSMS" id="subSMS">
+         
+                {{z}}
+         
+                </sub>
+                <svg onclick="chats()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text mensage" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                </svg>
+               </li>
+               <!-- responsivo -->
+                
+            <li class="l elimina" onclick="mobile()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul lis" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+            </svg>
+
+            </li>
+            <!-- responsivo -->
+            <li class="l ver" onclick="mobile()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </li>
+            <!-- fim responsivo -->
+
+        </nav>
+        <!-- nav responsivo -->
+        <nav class="responsivo">
+           
+            <li class="imgEmResponsivo">
+                <b class="aumentar">
+                    <svg onclick="mobile()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-text-paragraph" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m4-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </b>
+                <img class="icone" src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="">
+            </li>
+            <li class="imgResponsivo2">
+                <img onclick="usuarioss()" src="../static/arquivo_usuario/{{b}}" alt="">
+            </li>
+
+        </nav>
+        <!-- fim nav responsivo -->
+        <div class="box">
+
+        <li class="textoMenu elimina" onclick="menu()">
+            <img src="../static/arquivo_imagem/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+            <li class="textoMenu mR ver" onclick="menuR(this)">
+            <img src="../static/arquivo_imagem/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenu" onclick="short()">
+            <img src="../static/arquivo_imagem/library_add_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenu" onclick="artShort()">
+            <img src="../static/arquivo_imagem/subscriptions_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenu" onclick="curso()">
+            <img src="../static/arquivo_imagem/dictionary_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+
+
+       </div>
+</header>
+
+
+
+<div class="boxa" style="display: none;">
+
+    <h2 class="h2">
+        Notificação Deletada
+    </h2>
+
+</div>
+<div class="menu_mobile">
+
+
+
+
+   <div class="menu_mobile_menu">
+    <button onclick="limpar()">
+        <li>Notificação</li>
+        <b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+              
+        </b>
+    </button>
+
+    <button onclick="deletar_amigos()">
+        <li>Amigos</li>
+        <b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+              
+        </b>
+    </button>
+    <button>
+        <li>Perfil</li>
+        <b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+            </svg>
+              
+        </b>
+    </button>
+    <button>
+        <li>Projectos</li>
+        <b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gem" viewBox="0 0 16 16">
+                <path d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z"/>
+            </svg>
+        </b>
+    </button>
+    <button>
+        <li>Galeria</li>
+        <b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z"/>
+            </svg>
+        </b>
+        
+    </button>
+    <button class="bbtn" onclick="sair()">
+        <li>Sair</li>
+        <b>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </b>
+    </button>
+
+   </div>
+
+   <!-- inicio da formtação da lista de amigos -->
+    <div class="lista_amigo_delete">
+        <button onclick="voltar_deletar()">
+            <li>Voltar</li>
+            <li class="eliminar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
+                    <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z"/>
+                </svg>
+            </li>
+        </button>
+    {% for eliminar in OBTER_LISTA_EMITENTE %}
+    <button>
+        <img src="../static/arquivo_usuario/{{eliminar[2]}}" alt="">
+        <li onclick="eliminar(this)" class="texto">{{eliminar[0]}}</li>
+        <li class="eliminar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+        </li>
+      </button>
+    {% endfor %}
+     
+
+      
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+<section class="sect1">
+    <h1 style="display: none;" id="resultado">{{resultado}}</h1>
+       <!-- inicio da formtação dos dois article -->
+    <div class="artes">
+
+                <!-- inicio da formatação do chat de conversa -->
+    <article class="art1">
+
+
+        <div class="menuArt1">
+            <p class="dadoMenu elimina tirar"  onclick="usuarios()">
+                <b class="bt btImg">
+                   <img class="imgRR" src="../static/arquivo_usuario/{{b}}" alt="" id="img">
+                </b>
+                <b class="pp">{{sujeito}}</b>
+            </p>
+            <p class="dadoMenu meter bn">
+                <b class="bt btImg">
+                <svg  style="color: #1f1f1f;" onclick="chats()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text mensage" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                </svg>
+                </b>
+            </p>
+            <!-- responsivo -->
+            <p class="dadoMenu ver">
+                <b class="bt">
+                     <span class="spa"><img onclick="usuarioss()" src="../static/arquivo_usuario/{{b}}" alt="" id="img"></span>
+                </b>
+                <b class="pp">criar um gupo</b>
+            </p>
+             <!-- fim responsivo -->
+                     
+            <p class="dadoMenu ver veres" onclick="alugar_sala()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                    </svg>    
+                </b>
+                <b class="pp">alugar uma sala</b>
+            </p>
+            <!-- RESPONSIVO -->
+             <p class="dadoMenu elimina veresTira" onclick="alugar_salas()">
+                <b class="bt">
+                    <svg onclick="alugar_salas()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                    </svg>    
+                </b>
+                <b class="pp">alugar uma sala</b>
+            </p>
+             <!-- FIM REPONSIVO -->
+            <p class="dadoMenu" onclick="minha_denuncia()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </b>
+                <b class="pp">denunciar alguem</b>
+            </p>
+            <p class="dadoMenu" onclick="melhoria()" ondblclick="administrador()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                        <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0"/>
+                        <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708"/>
+                    </svg>                        
+                </b>
+                <b class="pp">Melhorar a Escola</b>
+            </p>
+            <p class="dadoMenu ver" onclick="perfil()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                    </svg>
+                </b>
+                <b class="pp">meu perfil</b>
+            </p>
+            <p class="dadoMenu elimina veres" onclick="adicionr_amigo()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                    </svg>
+                </b>
+                <b class="pp">Adicionar amigo</b>
+                 
+            </p>
+                 <!-- responsivo                    -->
+            <p class="dadoMenu ver veresTira" onclick="adicionr_amigos()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                    </svg>
+                </b>
+                <b class="pp">Adicionar amigo</b>
+                                         
+            </p>
+            <!-- fim responsivo -->
+            <p class="dadoMenu" ondblclick="configurações()">
+                <b class="bt">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                        <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                      </svg>
+                </b>
+                <b class="pp">Administrador</b>
+                
+            </p>
+   
+        </div>
+        <form class="shorte" action="short" method="post" enctype="multipart/form-data">
+
+            <h1 class="h">publica seu video</h1>
+            <input class="name" type="text" name="nome" placeholder="digite seu nome" required>
+            <input class="name" type="text" placeholder="Cole o link do seu whatsApp" name="whatsApp" required>
+            <input class="name" type="text" placeholder="Descrição do short..." name="texto">
+            <br>
+            <label class="label" for="file">meu short</label>
+            <input width="100px" class="file" type="file" name="file" required>
+            <button class="btnADD">adicionar</button>
+        </form>
+
+        <!-- inicio da formtação dos amigos disponiveis -->
+
+        <div class="amigos">
+
+            <div class="pesquisarAmigo">
+                <input type="text" placeholder="pesquisa no Learn Width Me" onkeyup="buscar()" id="nomeAmigo">
+                <button><img src="../static/arquivo_imagem/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt=""></button>
+            </div>
+
+            <div class="conteinerAmigos">
+                {% for a in obterAmigos %}
+                {% if a[0]!=None %}    
+                        <p class="friends nomeAmigos">
+                            <img src="http://127.0.0.1:5000/static/arquivo_usuario/{{a[1]}}" class="imagem">
+                
+                            <button class="nomeAmigo">{{a[0]}}_{{a[3]}}</button>
+                            <button class="b" onclick="adicionarAmigo(this)">adicionar</button>
+               
+                        
+                        </p>
+                                                <p class="friends nomeAmigos">
+                            <img src="http://127.0.0.1:5000/static/arquivo_usuario/{{a[1]}}" class="imagem">
+                
+                            <button class="nomeAmigo">{{a[0]}}_{{a[3]}}</button>
+                            <button class="b" onclick="adicionarAmigo(this)">adicionar</button>
+               
+                        
+                        </p>
+                                                <p class="friends nomeAmigos">
+                            <img src="http://127.0.0.1:5000/static/arquivo_usuario/{{a[1]}}" class="imagem">
+                
+                            <button class="nomeAmigo">{{a[0]}}_{{a[3]}}</button>
+                            <button class="b" onclick="adicionarAmigo(this)">adicionar</button>
+               
+                        
+                        </p>
+                                                <p class="friends nomeAmigos">
+                            <img src="http://127.0.0.1:5000/static/arquivo_usuario/{{a[1]}}" class="imagem">
+                
+                            <button class="nomeAmigo">{{a[0]}}_{{a[3]}}</button>
+                            <button class="b" onclick="adicionarAmigo(this)">adicionar</button>
+               
+                        
+                        </p>
+                {% endif %}
+                {% endfor %}
+                
+                
+            </div>
+            
+
+        </div>
+
+        <!-- fim da fromatação dos amigos disponiveis -->
+
+
+    </article>
+       <!-- fim da formatação do chat de conversa -->
+
+       <article class="art2">
+
+
+           <!-- inicio da formtação dos dados dos cursos disponiveis -->
+           {% for f in faceObter %}
+                                    <button class="btn cursoSearch">
+
+                                        <img src="../static/imagem_face/{{f[4]}}" alt="">
+                                        <p class="emocao">
+                                            <span class="span">
+                                                    <a href="{{f[1]}}">
+                                                    <svg style="color: blue;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook svg" viewBox="0 0 16 16">
+                                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                                                    </svg>
+                                                    </a>
+                                            </span>
+                                            <span>
+                                                <a href="{{f[3]}}">
+                                                    <svg style="display: none;" style="color: green;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp svg" viewBox="0 0 16 16">
+                                                        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                                                    </svg>
+                                                    <em class="terminar">comprar</em>
+                                    
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" onclick="cadastrar_se(this)" class="veres">
+                                                    <svg style="color: teal;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed svg" viewBox="0 0 16 16">
+                                                        <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
+                                                        <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+                                                    </svg>
+                                                                
+                                                </a>
+                                                <a href="#" onclick="cadastrar_ses(this)" class="veresTira">
+                                                    <svg style="color: teal;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed svg" viewBox="0 0 16 16">
+                                                        <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
+                                                        <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+                                                    </svg>
+                                                                
+                                                </a>
+                                                <b class="curs" style="display: none;" >{{f[1]}}</b>
+                                                <b id="professor" style="display: none;">{{f[0]}}</b>
+                                                <b style="display: none;" id="telefone">{{f[2]}}</b>
+                                            </span>
+                                        </p>
+                                        <p class="emocao">
+                                            <b class="es">
+                                             <b style="color: #1f1f1f;" class="cursoSearch">Curso:</b> <b class="curs">{{f[1]}}</b> 
+                                            </b>
+                                            <b class="es">
+                                                <b style="color: #1f1f1f;"> Professor:</b> <b>{{f[0]}}</b>
+                                            </b> 
+                                        </p>
+                                        
+                                </button>
+           {% endfor %}
+           <!-- fim a formtação dos dados disponiveis -->
+                 
+       </article>
+
+       <article class="art4">
+
+
+                <!-- inicio da formtação do short -->
+                              <div class="menu_shorte">
+                                <li class="texto_menu_shorte" onclick="usuarios()">
+                                    <img class="imgRR" src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="" id="img">
+                                </li>
+                                <li class="texto_menu_shorte link" onclick="usuarios()">
+                                    {{sujeito}}
+                                </li>
+                           
+                              </div>
+                              <div class="conteiner_shorte">
+                                  {% for s in obterListaShort %}
+                                                <button class="short">
+                                                       
+                                                    <div class="novo">
+                                                        <li onclick="lista(this)" class="v">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                                                            </svg>
+                                                        </li>
+                                                        <li>
+                                                            <svg onclick="chat()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text" viewBox="0 0 16 16">
+                                                                <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                                                                <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                                            </svg>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">
+                                                            <svg style="color: black;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                                                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                                                            </svg>
+
+                                                            </a>
+                                                     
+                                                        </li>
+                                                        <li  class="shortNome">{{s[0]}}</li>
+                                                    </div>
+                                                    
+                                                    <video poster="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" controlsList="nodownload" class="shortVideo" controls autocapitalize="">
+                                                        <source src="../static/meu_short/short/{{s[2]}}">
+                                                        
+                                                    </video>
+                                                  
+                                                    <div class="userPerfil">
+                                                        <img src="../static/arquivo_imagem/Gemini_Generated_Image_2ov2ly2ov2ly2ov2.jpg" alt="">
+                                                        <div class="textoUser">
+                                                            <li class="lTexto"><b>Cláudio Avelino</b></li>
+                                                            <li class="lTexto"><a href="">Meu WhatsApp</a></li>
+                                                        </div>
+                                                    </div>
+                                                    <p class="shortTexto" onclick="MostraTexto(this)">
+                                                       
+                                                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                         Ullam aut rem iusto illum, et error soluta deleniti necessitatibus 
+                                                         enim, eos tempora nemo.
+                                                         Dicta maxime molestias iste! Dignissimos recusandae quaerat ipsum! <b>{{s[0]}}</b>
+                                                    </p>
+
+                                                    
+                                                  
+                                                </button>
+                                              
+                                                <!-- <div class="ttxxtt">
+                                                    <p class="ttt">
+                                                        <b>{{s[0]}}:</b><b class="ppp">{{s[3]}}</b>
+                                                    </p>
+                                                </div> -->
+                                
+                                {% endfor %}
+
+                              </div>
+                <!-- fim da formtação do short -->
+
+
+       </article>
+       <!-- iniio da formtação do usuario -->
+
+
+<!-- inicio da formtação das aulas -->
+<div class="aulas">
+
+    <embed src="curso" type="">
+    
+
+</div>
+<!-- fim da formtação das aulas -->
+
+    </div>
+    <!-- fim da formatação dos dois article -->
+
+
+    <article class="art3">
+
+        <!-- primeiro comando -->
+
+        <div class="primeiro_comando">
+
+            <div class="caxa">
+
+                <h1>Olá <b id="n">{{sujeito}}</b></h1>
+                <p class="p">Seja bem vindo a <b>Learn To Me</b></p>
+
+            </div>
+            <div class="caxa">
+                <h1>Cursos Gratis</h1>
+                <div class="curse">
+
+                    <div class="curso1">
+                         <button>Python</button>
+                         <button>javascript</button>
+                    </div>
+                    <div class="curso1">
+                        <button>Html</button>
+                        <button>Css</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+      
+        <!-- fim do primeiro comando -->
+         <!-- inicio da formtaçã do augar sala -->
+         <div class="alugar_sala">
+            <form class="alugar_form" action="alugar_sala" , method="post" enctype="multipart/form-data">
+
+                <span class="img"><img class="img" src="../static/arquivo_usuario/{{b}}" alt=""></span>
+                <input type="text" name="nome" placeholder="Confirme o seu nome" required  value="{{sujeito}}">
+                <input type="password" name="senha" placeholder="Digite a senha de administrador">
+                <input type="text" name="sala" id="sala" placeholder="Digite o nome sa sala" required>
+                <input type="text" name="facebook" placeholder="Digite seu Terminal" required>
+                <input type="text" name="whatsApp" placeholder="cole o seu link do whatsApp" required>
+                <input type="file" name="file" required>
+                <button type="submit">alugar</button>
+
+            </form>
+         </div>
+         <!-- fim da formtação do alugar sala -->
+    
+         <!-- inicio da formtação do usuario -->
+         <div class="user margem" style="display: none;">
+            <span class="img"><img style="border: 2px solid seagreen;" class="img cor" src="../static/arquivo_usuario/{{b}}" alt=""></span>
+            <h1 class="h1">{{n}}</h1>
+            <br>
+            <h1>Nivel_>: <b>Iniciante</b></h1>
+            <br>
+            <br>
+            <h1>QI___>: <b>____0%</b></h1>
+            <br>
+            <br>
+            <p style="border: 0px solid red; width: 30px; height: 30px;margin-left: 0%; color: #ccc; display: flex; text-align: center; align-items: center; justify-content: space-around; width: 80%;">
+                <svg onclick="minha_sala()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed" viewBox="0 0 16 16">
+                    <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
+                    <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+                </svg>
+               <b>minha sala</b>
+            </p>
+            <br>
+            <br>
+            <p style="border: 0px solid red; width: 30px; height: 30px; margin-left: 0%; color: #ccc; display: flex; text-align: center; align-items: center; justify-content: space-around; width: 80%;">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                </svg>
+
+                <b>curso pago</b>
+
+
+            </p>
+            <br>
+            <br>
+            <p style="border: 0px solid red; width: 30px; height: 30px; margin-left: 3%; color: #ccc; display: flex; text-align: center; align-items: center; justify-content: space-around; width: 80%;">
+                <svg onclick="adicionar_video()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16">
+                    <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5zM2.5 3a.5.5 0 0 0-.5.5V6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3zM14 7H2v5.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5z"/>
+                </svg>
+                <b>adicionar aula</b>
+            </p>
+            <br>
+            <br>
+       
+
+         </div>
+         <!-- fim da formtação do usuario -->
+
+          <!-- inicio da formtação do curso -->
+
+          <div class="novo_chat">
+            <!-- outra linha -->
+            <div class="menuChat">
+                <li class="textoChat">
+                    <img src="../static/arquivo_usuario/{{b}}" alt="">
+                </li>
+                <li class="textoChat" id="textoChat">
+                    texto
+                </li>
+                <li class="textoChat">
+                    <svg style="color: rgb(14, 198, 198);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-broadcast cimaChat1" viewBox="0 0 16 16">
+                        <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707m2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 1 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708m5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708m2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
+                    </svg><span style="display: none;" id="sujeito">nome</span>
+                    
+                    <svg onclick="regressar()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house cimaChat2" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                    </svg> 
+                   
+                </li>
+            </div>
+            <!-- fim outra linha -->
+            <div class="chat">
+
+            <!-- formatação do menu de cima do chat -->
+
+            <!-- fim da formtação do menu de cima do chat -->
+
+            <!-- formtação do conteine das menssagens -->
+             <div class="menssagens" id="menssagens">
+              <em  id="userChat" style="color: #fff; position: fixed;">texto</em>
+              
+
+             </div>
+             <!-- fim da formtação do conteiner das menssagesn -->
+
+              <!-- formtação do formulario do envio das mensagens -->
+         
+            <!-- fim da formtação da formulario de envio das menssagens -->
+
+         
+            </div>
+            <!-- outra linha -->
+            <div class="form">
+                <input type="text" placeholder="Digite sua menssagem:" id="message-input" class="input">
+                <button type="submit" id="enviar" class="btnForm" onclick="enviar()"><img src="../static/arquivo_imagem/send_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt=""></button>
+            </div>
+            <!-- fim outra linha -->
+          </div>
+
+          <!-- fim da formatação do curso -->
+
+
+                  <!-- inicio da formtação do curso -->
+
+                  <form action="entrar_na_sala" method="post" class="curso">
+
+                    <div class="icones">
+                        <img src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="">
+                    </div>
+
+                    <div class="cnt">
+                            <h1 class="mm">Minha sala</h1>
+
+                            <input type="text" name="sala" id="SALA" placeholder="Digite o nome da sala:" required>
+                            <input type="text" name="nome" placeholder="Digite seu nome" required  value="{{sujeito}}">
+                            <input type="password" name="senha" placeholder="Digite sua senha" required>
+                            <button onclick="carregar()" type="submit">entrar</button>
+
+                    </div>
+                    <div class="others">
+                        {% for r in obter %}
+                        {% if r[4] != None %}
+
+                        <button class="meus_cusros">
+                            <li onclick="MeuCurso(this)" class="cfg1">{{r[4]}}</li>
+                        </button>
+
+
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+                  </form>
+
+                  <!-- fim da fortaçção do cuero -->
+
+
+                    <!-- inicio da formtação do curso -->
+
+                     <form action="user_cadastro" method="post" class="cadastra_se" enctype="multipart/form-data">
+
+                        <h1 class="mm">Registra-se</h1>
+
+                        <input type="text" id="sala_cadastro" name="sala" placeholder="Digite o nome da sala:" required>
+                        <input type="text" name="nome" placeholder="Digite seu nome" required  value="{{sujeito}}" id="userRegistro">
+                        <input type="text" name="apelido" placeholder="Digite eu apelido" required>
+                        <input type="number" name="telefone" placeholder="Digite seu Terminal" required>
+                        <input type="password" name="senha" placeholder="Digite sua senha" required>
+                        <input type="file" name="file" required>
+                        <button type="submit">cadastrar - se</button>
+                       
+                      </form>
+                      <div class="compra_usuario">
+                        <h2 id="formador"></h2>
+                        <h2>Compra o curso para receberes o codigo de confirmação</h2>
+                        <a id="tele" class="compra compra_usuarioTel" href="tel:+#"><button>comprar o curso</button></a>
+                        <input compra class="compra compra_usuarioInput" type="text" placeholder="Digite o codigo enviado pelo formador:" id="codigo_digitado_pelo_usuario">
+                        <button onclick="confirmar_compra()" class="compra compra_usuarioBtn">Confirmar</button>
+                      </div>
+          
+
+                      <!-- fim da fortaçção do cuero -->
+
+
+                    <!-- inicio da formtação do curso -->
+
+                  <form action="adicionar_video" method="post" enctype="multipart/form-data" class="adicionar">
+
+                    <h1 class="mm">Minha aulas</h1>
+
+                    <input type="text" name="sala" placeholder="Digite o nome da sala:" required>
+                    <input type="text" name="nome" placeholder="Digite seu nome" required value="{{sujeito}}">
+                    <input type="password" name="senha" placeholder="Digite sua senha" required>
+                    <input type="text" name="texto" placeholder="digite a descrição do video" required>
+                    <input type="file" name="file" required>
+                    <button onclick="carregar2()" type="submit">entrar</button>
+
+                  </form>
+
+                  <!-- fim da fortaçção do cuero -->
+
+                  <div class="meuChat">
+
+
+                            
+
+                        {% for f in OBTER_LISTA_EMITENTE %}
+                        
+                        <p class="userMeuChat">
+                            <img src="../static/arquivo_usuario/{{f[2]}}" alt="">
+                            <button class="amigo">{{f[0]}}</button>
+                            <button onclick="conversa(this)" class="anima">conversar</button>
+                            <b class="ponto" id="ponto">{{f[3]}}</b>
+                            <span id="sala" style="display: none;">{{f[1]}}</span>
+                        </p>
+
+
+                        
+                        {% endfor %}
+                            
+                         
+                               
+
+                   
+                  </div>
+
+
+                      <!-- meu lindo chat -->
+                    <div class="meuLindoChat">
+
+                        <div class="registro">
+                            <input style="width: 70%; height: 40px; background-color: #ccc; color: #1f1f1f;" type="text" name="nome" id="nomeR" placeholder="regista-se">
+                            <button style="width: 80px; height: 40px; background-color: #1f1f1f; color: #fff;" onclick="resistrar()">registrar</button>
+                        
+                        </div>
+                    
+                    
+                    
+                        <article id="inicios" class="inicios">
+                    
+                            <div class="menssagem">
+                                <span id="receber"></span>
+                            </div>
+                    
+                    
+                            <div class="chats">
+                                <input style="width: 70%; height: 40px; background-color: #ccc; color: #1f1f1f;" type="text" placeholder="destinatario" id="destinatario" class="destino">
+                                <input style="width: 70%; height: 40px; background-color: #ccc; color: #1f1f1f;" type="text" placeholder="digite sua menssagem" id="msg">
+                                <button style="width: 80px; height: 40px; background-color: #1f1f1f; color: #fff;" onclick="enviar()">enviar</button>
+                            </div>
+                        
+                    
+                        </article>
+                        
+
+                    </div>
+    <!-- fim do meu lindochat -->
+
+    <div class="notificar">
+    {% for nota in obter3 %}
+
+       <!-- amizade -->
+       <div class="amizade">
+
+        <div class="imagemAmizade">
+            <img src="{{nota[1]}}" alt="">
+        </div>
+
+        <div class="widgest">
+            <button class="sujeitoAmizade"><b class="buscarUser">{{nota[0]}}</b> fez um pedido de amizade</button>
+            
+            <button class="verde" onclick="aceitar(this)"> <em class="em">aceitar</em> <em class="red">recusar</em> </button>
+            <span style="display: none;" id="sala">{{sujeito}}_{{nota[0]}}</span>
+           
+        </div>
+
+    </div>
+   <!-- fim amizade -->
+
+    {% endfor %}
+    <!-- <div id="inicio_notificar">
+        <h1>Sem notificações {{sujeito}}</h1>
+    </div> -->
+     
+       
+
+        
+    </div>
+
+ 
+
+
+
+
+    </article>
+    <!-- fim da formatação do usuario -->
+
+
+</section>
+
+<section class="perfil">
+
+
+    <!-- inicio da formatação da primeira boxerfil -->
+    <div class="boxPerfil">
+
+        <div class="imgPerfil">
+            <img src="../static/arquivo_usuario/{{b}}" alt="">
+            <h1 id="nomeChat">{{n}} <i>.</i></h1>
+
+        </div>
+
+        <div class="dadosPerfil">
+
+            <p class="textoPerfil">
+                <b onclick="editar_imagem()">Editar Imagem</b>
+               <b>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image-alt" viewBox="0 0 16 16">
+                <path d="M7 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0m4.225 4.053a.5.5 0 0 0-.577.093l-3.71 4.71-2.66-2.772a.5.5 0 0 0-.63.062L.002 13v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4.5z"/>
+                </svg>
+               </b>
+            </p>
+            <p class="textoPerfil"> 
+                <b onclick="editar_nome()">Editar nome</b>
+                <b>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+                    <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5"/>
+                    <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z"/>
+                    </svg>
+                </b>
+             </p>
+            <p class="textoPerfil">
+                <b>Editar senha</b>
+                <b>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lock" viewBox="0 0 16 16">
+                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 5.996V14H3s-1 0-1-1 1-4 6-4q.845.002 1.544.107a4.5 4.5 0 0 0-.803.918A11 11 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664zM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1"/>
+                    </svg>
+                </b>
+            </p>
+
+        </div>
+
+
+    </div>
+    <!-- fim da formatação da primeira boxerfil -->
+
+
+ <div class="boxPerfil">
+
+        <div class="imgPerfil">
+            <img src="../static/arquivo_usuario/{{b}}" alt="">
+            <h1 id="nomeChat">{{n}} <i>.</i></h1>
+
+
+        </div>
+        
+
+        <div class="dadosPerfil">
+
+            <p class="textoPerfil">
+                <b>minha galeia</b>
+               <b>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image-alt" viewBox="0 0 16 16">
+                <path d="M7 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0m4.225 4.053a.5.5 0 0 0-.577.093l-3.71 4.71-2.66-2.772a.5.5 0 0 0-.63.062L.002 13v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4.5z"/>
+                </svg>
+               </b>
+            </p>
+            <p class="textoPerfil"> 
+                <b>Meus Amigos</b>
+                <b>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                </svg>
+                </b>
+             </p>
+            <p class="textoPerfil">
+                <b>Minhas actividades</b>
+                <b>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                    <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+                </svg>
+                </b>
+            </p>
+
+        </div>
+
+
+    </div>
+
+ <div class="boxPerfil">
+
+        <div class="imgPerfil">
+            <img src="../static/arquivo_usuario/{{b}}" alt="">
+            <h1 id="nomeChat">{{n}} <i>.</i></h1>
+
+        </div>
+
+        <div class="dadosPerfil">
+
+            <p class="textoPerfil">
+                <b>Cursos feitos</b>
+               <b>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
+                    <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z"/>
+                    <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z"/>
+                </svg>
+               </b>
+            </p>
+            <p class="textoPerfil"> 
+                <b>Cursos em adamento</b>
+                <b>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
+                    <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z"/>
+                    <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z"/>
+                </svg>
+                </b>
+             </p>
+            <p class="textoPerfil">
+                <b>Meus cursos</b>
+                <b>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
+                    <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z"/>
+                    <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z"/>
+                </svg>
+                </b>
+            </p>
+
+        </div>
+
+
+    </div>  
+    
+    <div class="modificar">
+
+        <!-- inicio da formtação da editação da imagem de perfil do usuario -->
+
+        <form action="editar_imagem" class="form-editar-imagem" enctype="multipart/form-data" method="post">
+            
+            <input class="entrada_editar" type="text" name="nome" placeholder="Confirme o seu nome">
+            <div class="entrada-editar-imagem">
+                <input type="file" name="editar_imagem" id="" class="input-editar-imagem">
+            </div>
+            <button class="btn-editar-imagem" type="submit">Editar</button>
+        </form>
+        <button onclick="voltar_editar_imagem()" class="btn-editar-imagem m">voltar</button>
+
+         <!-- fim da formatação da edição da imagem de perfil do usuario -->
+
+    </div>
+    <div class="modificar2">
+        <form action="editar_nome" class="form-editar-nome" method="post">
+            <input type="text" name="nome" id="nome" placeholder="nome actual">
+            <input type="text" name="nome2" id="nome2" placeholder="novo nome">
+            <button>Editar</button>
+        </form>
+    </div>
+
+</section>
+
+<div class="video_aula_usuario">
+
+    <div class="conteiner_ds_aulas">
+
+        <header class="menu_do_conteiner_das_aulas">
+            <nav class="nova_nav">
+               <b class="tame">
+                    <img src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="">
+               </b>
+               <li class="textoNav">
+                <svg onclick="regressar()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+            </svg> 
+               </li>
+               <li class="textoNav">
+
+                  <svg onclick="transmitir()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2z"/>
+                </svg>
+
+               </li>
+               <li class="textoNav">
+                  <svg onclick="alunos_registrados_no_grupo()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                  </svg>
+               </li>
+               <li class="textoNav">
+                    <svg style="color: #000;" onclick="chat_grupo()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text mensage" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                </svg>
+               </li>
+            </nav>
+         
+            <li class="titulo_menu" onclick="curso_actual()">
+               <b class="tame">
+                    <img src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="">
+               </b> 
+               <b style="display: none;" id="tg">{{novoNomeDaSala}}</b>
+            </li>
+            <nav class="nav">
+            <li class="txtFace listarCodigo"><button onclick="gerados()">Gerados</button></li>
+            <li class="txtFace"><button onclick="gerar_codigo()">codigo</button></li>
+            <li class="txtFace" onclick="alunos()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                    </svg>
+            </li>
+
+            <li class="txtFace">
+              <form action="#">
+                  <svg onclick="transmitir()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2z"/>
+                </svg>
+              </form>
+            </li>
+            <li class="txtFace" id="nome_da_sala">{{novoNomeDaSala}}</li>
+            
+            </nav>
+        </header>
+
+        <div class="video_lesson">
+            {% for lesson in O %}
+            {% if lesson[3] != None %}
+            <button class="other_lesson">
+                  <video controls autocapitalize="">
+                    <source src="../static/{{sala}}/{{lesson[2]}}" type="">
+                  </video>
+                  <div class="imgCurso">
+                    <li class="imgFace"><img src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt=""></li>
+                    <div class="textoFace">
+                        <li><b>Mentor:</b>{{lesson[0]}}</li>
+                        <li>{{lesson[3]}}.<b>like</b></li>
+                    </div>
+                  </div>
+             
+            </button>
+            {% endif %}
+            {% endfor %}
+
+           
+
+        </div>
+        <div class="alunos_cadastrados">
+                <div class="imagem_curso">
+                    <img src="../static/arquivo_imagem/Gemini_Generated_Image_yl0t6hyl0t6hyl0t.png" alt="">
+                   
+                </div>
+                <div class="users_registrados">
+                    {% for r in obter_lista_membro %}
+                    {% if r[0] != None and r[2] != None %}
+                    <div class="amigo_curso">
+                        <button class="button nomeAmigo" id="nome_user_grupo2">{{r[0]}}</button>
+                        <button class="button branco "><a href="tel:+244{{r[2]}}">Ligar</a></button>
+                        <button class="button addAmigo">fazendo o curso</button>
+                    </div>
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+        </div>
+
+        <div class="guardar_codigos_gerados">
+            <div class="codigos_gerados">
+            <div class="titulo_codigo">
+                <h1>{{novoNomeDaSala}}</h1>
+            </div>
+            <div class="listados">
+                {% for CODIGO in obter_Lista_cursor_codigo %}
+                <div class="resultado">
+                    <li class="lib">Codigo: {{CODIGO[0]}}</li>
+                    <li class="teal">{{CODIGO[1]}}</li>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        </div>
+
+    </div>
+    <div class="chat_de_conversa_do_grupo_das_aulas">
+
+        <div class="menu_chat">
+           <li style="display: none;" id="sala_do_grupo">{{novoNomeDaSala}}</li>
+           <li id="nome_user_grupo">{{nomeUser}}</li>
+           <li class="txtFace">
+                <svg onclick="home_grupo()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                </svg>
+           </li>
+        </div>
+        <div class="menssagem_grupo">
+            {% for msg_grupo in obter_menssgem_grupo %}
+
+             <li class="msg_grupo mims">
+                <em class="em">{{msg_grupo[0]}}</em>
+                {{msg_grupo[1]}}
+            </li>
+
+            {% endfor %}
+           
+        </div>
+
+        <div class="send">
+            <input type="text" placeholder="Digite sua menssagem" id="menssagem_grupo">
+            <button onclick="sendMenssageGrupo()"> enviar </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+    <!-- fim da aplicação -->
+
+
+    <!-- ultimo menu -->
+
+
+    <nav class="ultimo">
+         <div class="boxs">
+
+        <li class="textoMenus" onclick="homes()">
+            <img src="../static/arquivo_imagem/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenus" onclick="shorts()">
+            <img src="../static/arquivo_imagem/library_add_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenus" onclick="artShorts()">
+            <img src="../static/arquivo_imagem/subscriptions_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenus" onclick="cursos()">
+            <img src="../static/arquivo_imagem/dictionary_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </li>
+        <li class="textoMenus aumentar2">
+            <svg onclick="regressar()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+            </svg> 
+        </li>
+
+
+       </div>
+    </nav>
+
+    <nav class="ultimo2">
+        <h1 class="txtUltimo2">{{novoNomeDaSala}}</h1>
+         <button style="display: none;" class="volar_grupo" onclick="voltar_grupo()">voltar</button>
+    </nav>
+
+    <!-- ultimo menu -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+    <script src="../static/chat.js"></script>
+    <script src="../static/local.js"></script>
+    <script src="../static/inicio.js"></script>
+    <script src="../static/responsividade.js"></script>
+    <script src="../static/modo_escuro.js"></script>
+</body>
+</html>

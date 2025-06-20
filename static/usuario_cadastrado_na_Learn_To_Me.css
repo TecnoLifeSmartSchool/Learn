@@ -1,0 +1,153 @@
+*{
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    user-select: none;
+    border: none;
+    text-decoration: none;
+    
+
+}
+
+body{
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: aliceblue;
+
+}
+section{
+
+
+    width: 95%;
+    height: 90%;
+    background-color: seagreen;
+    border-radius: 5px;
+
+}
+.menu{
+
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 10%;
+    border: 0px solid #fff;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #fff;
+ 
+
+
+}
+
+.l1{
+
+    color: seagreen;
+    font-weight: bold;
+    font-size: 1.3em;
+    letter-spacing: 1px;
+    margin-left: 2%;
+
+}
+nav{
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    width: 40%;
+    height: 100%;
+
+
+}
+.l{
+
+    color: #ccc;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+
+}
+.l:hover{
+
+    color: #747474;
+    border-bottom: 1px solid #747474;
+
+
+}
+.usuario{
+
+    padding-left: 0px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 40px;
+    width: 100%;
+    height: 90%;
+    border-radius: 0px 0px 5px 5px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+}
+.usuario::-webkit-scrollbar{
+
+    width: 0px;
+
+}
+.usuario::-webkit-scrollbar-thumb{
+
+    width: 0px;
+
+}
+button{
+
+
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    width: 26%;
+    height: 85%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 10px 10px 0px 1px #747474;
+    margin-left: 5%;
+    margin-top: 5%;
+ 
+
+
+
+}
+img{
+
+    width: 100%;
+    height: 80%;
+    border-radius: 5px 5px 0px 0px;
+
+}
+.text{
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 20%;
+    border: 0px solid red;
+    border-radius: 0px 0px 5px 5px;
+
+
+}
+span{
+
+    color: #747474;
+
+}

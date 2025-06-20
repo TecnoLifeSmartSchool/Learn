@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn To Me</title>
+    <link rel="stylesheet" href="../static/usuario_cadastrado_na_Learn_To_Me.css">
+</head>
+<body>
+    
+
+    <section>
+        <!-- inicio da formtação do menu -->
+            <div class="menu">
+                <li class="l1">Learn To Me</li>
+                <nav>
+                    <li class="l">usuario</li>
+                    <li class="l">Eliminar</li>
+                    <li class="l">Editar</li>
+                    <li class="l">teste</li>
+                </nav>
+            </div>
+            <!-- fim da formatação do menu -->
+             <!-- inicio da formatação dos dados dos usuarios -->
+
+             <div class="usuario">
+                {% for x in obter %}
+                        <button>
+                            <img src="/static/arquivo_usuario/{{x[3]}}" alt="">
+
+                            <p class="text">
+                                <span>{{x[0]}}</span>
+                                <span>{{x[1]}}</span>
+                                <span>{{x[2]}}</span>
+                            </p>
+                        </button>
+                {% endfor %}
+
+             </div>
+
+
+             <!-- fim da formatação dos dados dos usuario -->
+    </section>
+
+
+</body>
+</html>
+

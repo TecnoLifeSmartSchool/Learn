@@ -14,7 +14,8 @@ from dotenv import load_dotenv
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 from flask_cors import CORS
-
+import cloudinary
+import cloudinary.uploader
 
 #--------------------------------------------------------------------------------------------
 from flask import Flask , render_template , request , redirect
@@ -41,7 +42,11 @@ def homes():
 # inicio da formtação da configuração do chat de conveersa
 
 # fimda configuração do chat de conveersa    
-
+cloudinary.config(
+    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key = os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret = os.environ.get('CLOUDINARY_API_SECRET')
+)
 #--------------------------------------------------------------------------------------------
 # formatação do link da rota de cadastro enviado pelo javascript
 @app.route('/cadastro')
@@ -52,44 +57,73 @@ def cadastro():
 
 #--------------------------------------------------------------------------------------------
 # formataçã da routa da pagina de cadastro
-@app.route('/cadastro.html' , methods=['POST'])
+@app.route('/cadastro.html', methods=['POST'])
 def cadastrar():
     nome = request.form.get('nome')
     apelido = request.form.get('apelido')
     senha = request.form.get('senha')
     telefone = request.form.get('tel')
-    foto = request.files.get('foto')
-    ID_usuario = random.randrange(1000,9999)
-    novo_nome_da_foto = foto.filename.replace("-", "_")
-    foto.save(os.path.join('static/arquivo_usuario' , novo_nome_da_foto))
-    print(novo_nome_da_foto)
+    foto = request.files.get('foto') # O objeto FileStorage do Werkzeug
 
+    ID_usuario = random.randrange(1000, 9999)
+    url_da_foto = None # Inicializamos como None. Se não houver foto, este será o valor.
 
-   
+    # 1. Lógica de Upload para o Cloudinary
+    if foto and foto.filename != '':
+        try:
+            # O .upload() do Cloudinary aceita o objeto FileStorage diretamente
+            # ou o stream de bytes do arquivo.
+            upload_result = cloudinary.uploader.upload(foto)
+            url_da_foto = upload_result['secure_url'] # Esta é a URL pública da imagem no Cloudinary
+            print(f"Foto enviada para Cloudinary: {url_da_foto}")
+        except Exception as e:
+            print(f"Erro ao fazer upload da foto para Cloudinary: {e}")
+            flash('Houve um erro ao enviar sua foto. Tente novamente.', 'error')
+            return redirect(url_for('cadastro')) # Redirecione de volta ao formulário de cadastro
 
+    # 2. Conexão e Inserção no Banco de Dados SQLite
+    # IMPORTANTE: Lembre-se que SQLite não é recomendado para produção no Render.
+    # Esta parte ainda usará SQLite, mas você precisará migrar para PostgreSQL.
+    try:
+        conexao = sqlite3.connect('Learn_width_Me')
+        cursor = conexao.cursor()
 
-    conexão = sqlite3.connect('Learn_width_Me')
-    cursor = conexão.cursor()
-    cursor.execute('''create table if not exists usuario(
-    
-    id integer primary key,
-    nome char(45),
-    apelido char(45),
-    senha char(45),
-    telefone char(45),
-    foto char(200),
-    ID_usuario char(45),
-    curso_usuario
-    
-    
-    )''')
+        # Criação da Tabela (Apenas se não existir)
+        # É uma boa prática ter um script separado para inicializar o DB e as tabelas
+        # ou usar um ORM com migrations. Chamá-lo aqui garante que a tabela exista
+        # para a primeira execução, mas não resolve a persistência no Render.
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS usuario (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome CHAR(45),
+                apelido CHAR(45),
+                senha CHAR(45),
+                telefone CHAR(45),
+                foto CHAR(200), -- Armazenará a URL da foto do Cloudinary
+                ID_usuario CHAR(45),
+                curso_usuario CHAR(45) -- Assumi um tipo para curso_usuario
+            )
+        ''')
 
-    cursor.execute('''insert into usuario(nome , apelido , senha , telefone , foto , ID_usuario) values (?,?,?,?,?,?)''',(nome , apelido , senha , telefone , novo_nome_da_foto , ID_usuario))
-    conexão.commit()
-    conexão.close()
+        # Inserção dos dados no banco de dados
+        # O 'url_da_foto' é o que será salvo no DB agora.
+        cursor.execute('''
+            INSERT INTO usuario(nome, apelido, senha, telefone, foto, ID_usuario)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (nome, apelido, senha, telefone, url_da_foto, ID_usuario))
 
+        conexao.commit()
+        flash('Cadastro realizado com sucesso!', 'success')
+        print(f"Usuário {nome} cadastrado com ID {ID_usuario} e foto URL: {url_da_foto}")
+        return redirect(url_for('login')) # Ou a página de sucesso após o cadastro
 
-    return render_template('index.html')
+    except sqlite3.Error as e:
+        conexao.rollback()
+        print(f"Erro no banco de dados: {e}")
+        flash('Houve um erro no cadastro. Tente novamente.', 'error')
+        return redirect(url_for('cadastro'))
+    finally:
+        conexao.close()
 # fim da formtação da routa da pagina de cadastro
 #--------------------------------------------------------------------------------------------
 

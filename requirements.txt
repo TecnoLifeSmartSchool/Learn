@@ -1,3 +1,5 @@
+Flask-SQLAlchemy
+psycopg2-binary
 cloudinary
 aiohappyeyeballs==2.6.1
 aiohttp==3.12.12
